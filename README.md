@@ -57,6 +57,6 @@ Some considerations for scaling the application:
 
     - The raw could be stored in S3, or a database (AWS Redshift, for example). The data is sensor-like so if it was to be "real-time", i.e. streaming, data then AWS Kinesis services with AWS lambda could be used for ETL. As part of this pipeline a message could be sent, via AWS SNS for example, from a Lambda function warning the user if the vibration level is rising above a cut-off value that could potentially lead to the turbine shutting down.
 
-    - A web app could be designed to allow the user to select a timestamp and windfarm from an interface. This would then display the status
-    information and sensor plots. The sensor information could be displayed in the app as a map of the wind farms showing the status overlaid on the map. Data could be received via APIs, for example.
+    - A web app could be designed to allow the user to select a timestamp and wind farm from an interface. This would then display the status
+    information and sensor plots for each turbine on that farm. The sensor information could be displayed in the app as a map of the wind farms showing the status overlaid on the map. Data could be received via APIs, for example.
 
