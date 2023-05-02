@@ -1,5 +1,5 @@
-How to
-======
+How to use
+==========
 
 First, clone the repository and then run 
 
@@ -17,8 +17,6 @@ Run the task scripts in the terminal by using, for example, in the "tasks" folde
 
 `python task1.py`
 
-
-
 Notes on Improvements and Future Considerations
 ===============================================
 
@@ -28,7 +26,8 @@ These are some python packages that I would include in future:
 
     - Pydantic and Pandera
 
-       I'd use Pydantic to parse values passed as arguments to methods, functions, etc., for example the user inputs. I'd use Pandera
+       I'd use Pydantic to parse values passed as arguments to methods, functions, etc., for example the user inputs. Pandera would allow for
+       checks against the timestamp formatting, for example, and reject the input if the format is not what is expected. I'd use Pandera
        to validate the dataframes passed as arguments to methods/functions (or read in from csv/database, etc.)
 
     - Logging
@@ -50,6 +49,9 @@ Some other tools I would use:
        I'd use Docker to containerize the code as an application, i.e. task 3 could be run in a container, then there is
        no need to have python, etc. configured at the user side. I'd use Docker as an evironment for developing the code.
 
+    - GitHub Actions
+
+      I'd use GitHub Actions for CI/CD to run the unit tests and linter when new code is pushed to the main branch. 
 
 ### Notes on scaling
 
