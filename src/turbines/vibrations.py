@@ -23,13 +23,18 @@ class VibrationAnalysis:
         # group the time series data by day
         return df.groupby(["id", df["Datetime"].dt.day])["MeanRadialVib"].mean().reset_index()
     
-    def turbine_status(self, df: pd.DataFrame, vib_cutoff: float = 0.3) -> pd.DataFrame:
+    def turbine_status(self, df: pd.DataFrame, upper_cutoff: float = 0.3, lower_cutoff: float = 0.17) -> pd.DataFrame:
 
-        # adding an arbitrary cut-off value based on the plots of 0.3. This would likely be determined statistically in production.
-        conditions = [df["MeanRadialVib"] >= vib_cutoff, df["MeanRadialVib"] == 0.0, df["MeanRadialVib"].isna()]
+        # adding an arbitrary cut-off values based on looking at the plots. This would likely be determined statistically in production.
+        conditions = [
+            ((df["MeanRadialVib"] <= lower_cutoff) & (df["MeanRadialVib"] > 0.0)),
+            df["MeanRadialVib"] >= upper_cutoff,
+            df["MeanRadialVib"] == 0.0, 
+            df["MeanRadialVib"].isna()
+            ]
 
         # data is missing from some of the time series data so adding status "missing data" for those cases
-        results = ["WARNING", "DOWN", "MISSING DATA"]
+        results = ["WARNING", "WARNING", "DOWN", "MISSING DATA"]
 
         return df.assign(Status=np.select(conditions, results, default="OK"))
     
