@@ -14,14 +14,14 @@ import re
 """
 
 # combine downtime and turbine_metadata for task 1. 
-dt = pd.read_csv("downtime.csv", low_memory=False, parse_dates=["start", "end"], infer_datetime_format=True)
-meta = pd.read_csv("turbine_metadata.csv", low_memory=False)
+dt = pd.read_csv("../data/downtime.csv", low_memory=False, parse_dates=["start", "end"], infer_datetime_format=True)
+meta = pd.read_csv("../data/turbine_metadata.csv", low_memory=False)
 
 # merge downtime data with metadata
 dt_meta = dt.merge(meta, how="left", on="id")
 
 # import data. Could be stored in S3. Could use Athena to query files in S3.
-files = glob.glob("time_series/*")
+files = glob.glob("../data/time_series/*")
 
 # get the turbine ID from the file name
 ids = [re.findall("\d+", id) for id in files]
@@ -40,5 +40,5 @@ time_series_data = time_series.merge(meta, on="id", how="left")
 time_series_all = time_series_data.rename({time_series_data.columns[0]: "Datetime"}, axis=1)
 
 # output dataframes to csv
-dt_meta.to_csv("new_downtime.csv", index=False)
-time_series_all.to_csv("time_series_all.csv", index=False)
+dt_meta.to_csv("../data/new_downtime.csv", index=False)
+time_series_all.to_csv("../data/time_series_all.csv", index=False)
