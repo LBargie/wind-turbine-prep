@@ -1,0 +1,4 @@
+pandas==1.4.0
+matplotlib==3.5.1
+numpy==1.23.2
+pytest==7.1.2
